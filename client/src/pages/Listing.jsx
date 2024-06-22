@@ -15,8 +15,8 @@ import {
   FaShare,
 } from "react-icons/fa";
 import Contact from "../components/Contact";
-
-// https://sabe.io/blog/javascript-format-numbers-commas#:~:text=The%20best%20way%20to%20format,format%20the%20number%20with%20commas.
+import CommentContainer from "../components/comments/CommentContainer";
+import Map from "../components/Map";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
@@ -193,10 +193,8 @@ export default function Listing() {
               {contact && <Contact listing={listing} />}
             </div>
  
-            <div className="bg-green-800">
-                  
-            </div>
-            
+            <Map />
+            <CommentContainer className="mt-10" logginedUserId="a" />
           </div>
         </div>
       )}

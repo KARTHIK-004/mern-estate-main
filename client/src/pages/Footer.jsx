@@ -12,7 +12,7 @@ function Footer() {
               </div>
               <p className="text-4xl ">
                 <span className="text-slate-500">
-                  <b>Hotel</b>
+                  <b>Hostel</b>
                 </span>
                 <span className="text-slate-700">
                   <b>Now</b>

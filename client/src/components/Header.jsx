@@ -30,7 +30,7 @@ export default function Header() {
             <span className="w-16">
               <img src="public/images/HostelNow.png" alt="" />
             </span>
-            <span className="text-slate-500">Hotel</span>
+            <span className="text-slate-500">Hostel</span>
             <span className="text-slate-700">Now</span>
           </h1>
         </Link>
