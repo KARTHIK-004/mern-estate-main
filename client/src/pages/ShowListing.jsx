@@ -79,7 +79,7 @@ export default function Profile() {
     }
   };
   return (
-    <div className='max-w-lg mx-auto'>
+    <div className='max-w-screen-lg mx-auto'>
 
       {/* Banner Section */}
       <div className=" pb-[60px] pt-[120px] md:pt-[130px] lg:pt-16  ">

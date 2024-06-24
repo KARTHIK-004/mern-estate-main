@@ -34,10 +34,10 @@ const Comment = ({
         className="w-9 h-9 object-cover rounded-full"
       />
       <div className="flex-1 flex flex-col">
-        <h5 className="font-bold text-dark-hard text-xs lg:text-sm">
+        <h5 className="font-bold text-slate-700 text-xs lg:text-sm">
           {comment.user.name}
         </h5>
-        <span className="text-xs text-dark-light">
+        <span className="text-xs text-slate-500">
           {new Date(comment.createdAt).toLocaleDateString("en-US", {
             day: "numeric",
             month: "short",
@@ -46,7 +46,7 @@ const Comment = ({
           })}
         </span>
         {!isEditing && (
-          <p className="font-opensans mt-[10px] text-dark-light">
+          <p className="font-opensans mt-[10px] text-slate-700">
             {comment.desc}
           </p>
         )}
@@ -58,7 +58,7 @@ const Comment = ({
             initialText={comment.desc}
           />
         )}
-        <div className="flex items-center gap-x-3 text-dark-light font-roboto text-sm mt-3 mb-3">
+        <div className="flex items-center gap-x-3 text-slate-700 text-sm mt-3 mb-3">
           {isUserLoggined && (
             <button
               className="flex items-center space-x-2"

@@ -93,8 +93,8 @@ export default function Home() {
         </div>
       </div>
 
+
       
-    
 
       {/* listing results for offer, sale and rent */}
 
