@@ -4,6 +4,10 @@ const commentSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.ObjectId, ref: "User" },
     comment: String,
+    username : String,
+    avatar : String,
+    listingId : {type : mongoose.Schema.ObjectId , ref : "Listing"}
+    // parent : {type : mongoose.Schema.ObjectId,ref : 'Comment'}
   },
   { timestamps: true }
 );

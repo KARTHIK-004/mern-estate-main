@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import { FiEdit2, FiMessageSquare, FiTrash } from "react-icons/fi";
+import { FiEdit2, FiTrash } from "react-icons/fi";
+// import { FiMessageSquare } from "react-icons/fi";
 import CommentForm from "./CommentForm";
 
 const Comment = ({
@@ -7,35 +9,37 @@ const Comment = ({
   logginedUserId,
   affectedComment,
   setAffectedComment,
-  addComment,
-  parentId = null,
+  // addComment,
+  // parentId = null,
   updateComment,
   deleteComment,
-  replies,
+  // replies,
 }) => {
-  const isUserLoggined = Boolean(logginedUserId);
-  const commentBelongsToUser = logginedUserId === comment.user._id;
-  const isReplying =
-    affectedComment &&
-    affectedComment.type === "replying" &&
-    affectedComment._id === comment._id;
+  // const isUserLoggined = Boolean(logginedUserId);
+  const commentBelongsToUser = logginedUserId == comment.user;
+  console.log({logginedUserId,commentId : comment._id})
+  console.log({comment : comment.comment,commentBelongsToUser,logginedUserId,commentUserId : comment._id})
+  // const isReplying =
+  //   affectedComment &&
+  //   affectedComment.type === "replying" &&
+  //   affectedComment._id === comment._id;
   const isEditing =
     affectedComment &&
     affectedComment.type === "editing" &&
     affectedComment._id === comment._id;
-  const repliedCommentId = parentId ? parentId : comment._id;
-  const replyOnUserId = comment.user._id;
+  // const repliedCommentId = parentId ? parentId : comment._id;
+  // const replyOnUserId = comment.user._id;
 
   return (
     <div className="flex flex-nowrp items-start gap-x-3 bg-slate-200 p-3 rounded-lg">
       <img
-        src="../src/data/image.svg"
+        src={comment.avatar}
         alt="user profile"
         className="w-9 h-9 object-cover rounded-full"
       />
       <div className="flex-1 flex flex-col">
         <h5 className="font-bold text-slate-700 text-xs lg:text-sm">
-          {comment.user.name}
+          {comment.username}
         </h5>
         <span className="text-xs text-slate-500">
           {new Date(comment.createdAt).toLocaleDateString("en-US", {
@@ -47,7 +51,7 @@ const Comment = ({
         </span>
         {!isEditing && (
           <p className="font-opensans mt-[10px] text-slate-700">
-            {comment.desc}
+            {comment.comment}
           </p>
         )}
         {isEditing && (
@@ -55,11 +59,11 @@ const Comment = ({
             btnLabel="Update"
             formSubmitHanlder={(value) => updateComment(value, comment._id)}
             formCancelHandler={() => setAffectedComment(null)}
-            initialText={comment.desc}
+            initialText={comment.comment}
           />
         )}
         <div className="flex items-center gap-x-3 text-slate-700 text-sm mt-3 mb-3">
-          {isUserLoggined && (
+          {/* {isUserLoggined && (
             <button
               className="flex items-center space-x-2"
               onClick={() =>
@@ -69,8 +73,8 @@ const Comment = ({
               <FiMessageSquare className="w-4 h-auto" />
               <span>Reply</span>
             </button>
-          )}
-          {commentBelongsToUser && (
+          )} */}
+          {!!commentBelongsToUser && (
             <>
               <button
                 className="flex items-center space-x-2"
@@ -91,7 +95,7 @@ const Comment = ({
             </>
           )}
         </div>
-        {isReplying && (
+        {/* {isReplying && (
           <CommentForm
             btnLabel="Reply"
             formSubmitHanlder={(value) =>
@@ -99,8 +103,8 @@ const Comment = ({
             }
             formCancelHandler={() => setAffectedComment(null)}
           />
-        )}
-        {replies.length > 0 && (
+        )} */}
+        {/* {replies.length > 0 && (
           <div>
             {replies.map((reply) => (
               <Comment
@@ -117,7 +121,7 @@ const Comment = ({
               />
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

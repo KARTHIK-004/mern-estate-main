@@ -26,6 +26,10 @@ export default function CreateListing() {
     offer: false,
     parking: false,
     furnished: false,
+    lat:'',
+    lon:'',
+    availableRooms: 0,
+
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -33,6 +37,7 @@ export default function CreateListing() {
   const [loading, setLoading] = useState(false);
   
   const handleImageSubmit = (e) => {
+    e.preventDefault()
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
       setImageUploadError(false);
@@ -51,6 +56,7 @@ export default function CreateListing() {
           setUploading(false);
         })
         .catch((err) => {
+          console.log(err)
           setImageUploadError('Image upload failed (2 mb max per image)');
           setUploading(false);
         });
@@ -189,6 +195,28 @@ export default function CreateListing() {
             onChange={handleChange}
             value={formData.address}
           />
+          <div className='flex items-center gap-3'>
+            <input
+              type='text'
+              placeholder='Latitude'
+              className='border p-3 rounded-lg'
+              id='lat'
+              required
+              onChange={handleChange}
+              value={formData.lat}
+            />
+            <input
+              type='text'
+              placeholder='Longitude'
+              className='border p-3 rounded-lg'
+              id='lon'
+              required
+              onChange={handleChange}
+              value={formData.lon}
+            /> 
+          </div>
+          
+
           <div className='flex gap-6 flex-wrap'>
             <div className='flex gap-2'>
               <input
@@ -267,6 +295,7 @@ export default function CreateListing() {
                 value={formData.bathrooms}
               />
               <p>Baths</p>
+              
             </div>
             <div className='flex items-center gap-2'>
               <input
@@ -285,6 +314,18 @@ export default function CreateListing() {
                   <span className='text-xs'>($ / month)</span>
                 )}
               </div>
+              <input
+                type='number'
+                id='availableRooms'
+                min='1'
+                max='10'
+                required
+                className='p-3 border border-gray-300 rounded-lg'
+                onChange={handleChange}
+                value={formData.availableRooms}
+              />
+              <p>Available Rooms</p>
+              
             </div>
             {formData.offer && (
               <div className='flex items-center gap-2'>

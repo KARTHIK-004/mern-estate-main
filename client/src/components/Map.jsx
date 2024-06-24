@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-function Map() {
+function Map({listing}) {
   return (
     <MapContainer
-      center={[13.028212222708069, 80.17798871713094]}
+      center={[listing.lat, listing.lon]}
       zoom={16}
       scrollWheelZoom={false}
       className="w-full h-full rounded-2xl"
@@ -13,7 +14,7 @@ function Map() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[13.028212222708069, 80.17798871713094]}>
+      <Marker position={[listing.lat, listing.lon]}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>

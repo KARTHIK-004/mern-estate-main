@@ -11,7 +11,7 @@ import {
 const router = Router();
 
 router.post("/addComment",addComment);
-router.get("/allComments",getComments);
+router.get("/allComments/:listingId",getComments);
 router.get("/getComment/:id",getCommentById);
 
 

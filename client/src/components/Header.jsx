@@ -63,7 +63,7 @@ export default function Header() {
           </Link>
           <Link to="/search">
             <li className="hidden sm:inline text-slate-700 hover:underline">
-              Proporties
+              Properties
             </li>
           </Link>
           <Link to="/show-listing">

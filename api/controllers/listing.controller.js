@@ -112,3 +112,18 @@ export const getListings = async (req, res, next) => {
     next(error);
   }
 };
+
+export const reduceBooking = async(req,res)=>{
+  const {listingId} = req.body;
+const listing = await Listing.findById({_id : listingId});
+listing.availableRooms-=1;
+await listing.save()
+  .then(result=>{
+    res.json({message : "updated the rooms"});
+  })
+  .catch(err=>{
+    console.log(err);
+    res.status(501);
+  })
+
+}

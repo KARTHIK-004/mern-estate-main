@@ -9,10 +9,10 @@ import { IoSchoolOutline, IoTrainOutline } from "react-icons/io5";
 import { SlSizeFullscreen } from "react-icons/sl";
 import { IoMdPeople } from "react-icons/io";
 import {
-  FaBath,
+  // FaBath,
   FaBed,
   FaChair,
-  FaMapMarkedAlt,
+  // FaMapMarkedAlt,
   FaMapMarkerAlt,
   FaParking,
   FaRegHospital,
@@ -32,6 +32,26 @@ export default function Listing() {
   const [contact, setContact] = useState(false);
   const params = useParams();
   const { currentUser } = useSelector((state) => state.user);
+
+  const fetchListing = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/listing/get/${params.listingId}`);
+      const data = await res.json();
+      if (data.success === false) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+      setListing(data);
+      setLoading(false);
+      setError(false);
+    } catch (error) {
+      setError(true);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const fetchListing = async () => {
       try {
@@ -54,8 +74,19 @@ export default function Listing() {
 
     fetchListing();
   }, [params.listingId]);
-  async function handleRentButton(){
-    alert('Rent button clicked')
+  async function handleRentButton() {
+    // alert("Rent button clicked");
+    const res = await fetch("/api/listing/reduceBooking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        listingId: listing._id,
+      }),
+    });
+    fetchListing();
+    console.log(res);
   }
   return (
     <main>
@@ -135,7 +166,7 @@ export default function Listing() {
             </p>
           )}
 
-          <div className="container mx-auto lg:px-32 md:px-6">
+          <div className="container mx-auto lg:px-16 md:px-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 p-4">
                 <div className="flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4 ">
@@ -150,6 +181,9 @@ export default function Listing() {
                     <FaMapMarkerAlt className="text-green-700" />
                     {listing.address}
                   </p>
+                  <p className="flex items-center gap-2 text-red-600  text-sm">
+                   Total Beds Available -{listing.availableRooms}
+                  </p>
 
                   <p className="text-slate-700">
                     <span className="font-semibold text-slate-700">
@@ -158,7 +192,10 @@ export default function Listing() {
                     {listing.description}
                   </p>
                   <div className="flex gap-4">
-                    <button className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md" onClick={handleRentButton}>
+                    <button
+                      className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md"
+                      onClick={handleRentButton}
+                    >
                       {listing.type === "rent" ? "For Rent" : "For Sale"}
                     </button>
                     {listing.offer && (
@@ -167,8 +204,12 @@ export default function Listing() {
                       </p>
                     )}
                   </div>
-                  
-                  <CommentContainer className="mt-10" logginedUserId="a" />
+
+                  <CommentContainer
+                    className="mt-10"
+                    logginedUserId={currentUser._id}
+                    listingId={listing._id}
+                  />
                 </div>
               </div>
               <div className="flex-1 p-4 pt-10">
@@ -240,7 +281,7 @@ export default function Listing() {
                       <div className="feature flex items-center gap-2.5">
                         <IoSchoolOutline className="w-6 h-6" />
                         <div className="featureText">
-                          <span className="font-semibold">Collage</span>
+                          <span className="font-semibold">College</span>
                           <p className="text-sm text-slate-500">250m away</p>
                         </div>
                       </div>
@@ -263,19 +304,19 @@ export default function Listing() {
                       Location :
                     </p>
                     <div className="mapContainer w-full h-64 ">
-                      <Map />
+                      <Map listing={listing}/>
                     </div>
                     {currentUser &&
-                    listing.userRef == currentUser._id &&
-                    !contact && (
-                      <button
-                        onClick={() => setContact(true)}
-                        className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
-                      >
-                        Contact landlord
-                      </button>
-                    )}
-                  {contact && <Contact listing={listing} />}
+                      listing.userRef !== currentUser._id &&
+                      !contact && (
+                        <button
+                          onClick={() => setContact(true)}
+                          className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                        >
+                          Contact landlord
+                        </button>
+                      )}
+                    {contact && <Contact listing={listing} />}
                   </div>
                 </div>
               </div>
