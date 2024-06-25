@@ -37,4 +37,28 @@ const getCommentById = async(req,res) =>{
     }
 }
 
-export {addComment,getComments,getCommentById};
+const deleteCommentById = async(req,res)=>{
+    const {id} = req.params;
+    try{
+        await Comment.deleteOne({_id : id});
+        res.status(204).json({message : "deleted the comment"});
+    }catch(err){
+        res.status(501).json({err});
+    }
+}
+
+const updateCommentById = async(req,res)=>{
+    const {id} = req.params;
+    const {comment} = req.body;
+    try{
+        const commentDoc = await Comment.findById({_id : id});
+        commentDoc.comment = comment;
+        await commentDoc.save();
+        res.status(200).json({message : "ok"})
+    }catch(err){
+        console.log(err);
+        res.status(501).json({err});
+    }
+}
+
+export {addComment,getComments,getCommentById,deleteCommentById,updateCommentById};
