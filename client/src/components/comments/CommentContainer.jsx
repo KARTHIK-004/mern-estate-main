@@ -45,14 +45,40 @@ const CommentContainer = ({ className, logginedUserId ,listingId  }) => {
   };
 
   const updateCommentHandler = async(value, commentId) => {
-    alert('comment updated');
+    const res = await fetch(`/api/comment/updateComment/${commentId}`,{
+      method : "PATCH",
+      headers : {
+        'Content-Type' : 'application/json'
+      },
+      body : JSON.stringify({
+        comment : value, 
+      })
+    });
+    console.log(res);
+    setAffectedComment(null);
+    (async () => {
+      const commentDataRes = await fetch(`/api/comment/allComments/${listingId}`);
+      const commentData = await commentDataRes.json();
+      console.log(commentData.comments);
+      setComments(commentData.comments);
+    })();
+    
   };
 
-  const deleteCommentHandler = (commentId) => {
-    const updateCommments = comments.filter((comment) => {
-      return comment._id !== commentId;
-    });
-    setComments(updateCommments);
+  const deleteCommentHandler = async(commentId) => {
+    const res = await fetch(`/api/comment/deleteComment/${commentId}`,{
+      method : "DELETE"
+    })
+    console.log(res);
+    // const updateCommments = comments.filter((comment) => {
+    //   return comment._id !== commentId;
+    // });
+    (async () => {
+      const commentDataRes = await fetch(`/api/comment/allComments/${listingId}`);
+      const commentData = await commentDataRes.json();
+      console.log(commentData.comments);
+      setComments(commentData.comments);
+    })();
   };
 
   // const getCommentHandler = (commentId) => {
