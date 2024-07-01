@@ -40,7 +40,7 @@ const CommentForm = ({
   return (
     <form onSubmit={submitHandler}>
       <div className="wrapper p-6 flex flex-col items-center gap-3 rounded-lg bg-white  z-1">
-        <div className="title font-bold text-lg">Rate your experience</div>
+        <div className="title text-2xl font-semibold">Rate your experience</div>
         <div className="content text-center text-gray-600 leading-relaxed">
           We highly value your feedback! Kindly take a moment to rate your
           experience and provide us with your valuable feedback.
