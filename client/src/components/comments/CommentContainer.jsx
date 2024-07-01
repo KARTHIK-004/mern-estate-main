@@ -22,7 +22,9 @@ const CommentContainer = ({ className, logginedUserId ,listingId  }) => {
     })();
   }, []);
 
-  const addCommentHandler = async (value) => {
+  const addCommentHandler = async (value,rating) => {
+    if(value==="") return
+    console.log(rating)
     console.log(logginedUserId,value)
     const newComment = await fetch("/api/comment/addComment", {
       method: "POST",
@@ -32,7 +34,8 @@ const CommentContainer = ({ className, logginedUserId ,listingId  }) => {
       body : JSON.stringify({
         userId : logginedUserId,
         comment : value,
-        listingId 
+        listingId ,
+        rating
       })
     });
     console.log(newComment);
@@ -45,6 +48,7 @@ const CommentContainer = ({ className, logginedUserId ,listingId  }) => {
   };
 
   const updateCommentHandler = async(value, commentId) => {
+    if(value==="") return
     const res = await fetch(`/api/comment/updateComment/${commentId}`,{
       method : "PATCH",
       headers : {
@@ -94,7 +98,7 @@ const CommentContainer = ({ className, logginedUserId ,listingId  }) => {
     <div className={`${className}`}>
       <CommentForm
         btnLabel="Send"
-        formSubmitHanlder={(value) => addCommentHandler(value)}
+        formSubmitHanlder={async(value,rating) => await addCommentHandler(value,rating)}
       />
       <div className="space-y-4 mt-8">
         {comments?.map((comment) => (

@@ -28,7 +28,7 @@ export default function Header() {
         <Link to="/">
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
             <span className="w-16">
-              <img src="public/images/HostelNow.png" alt="" />
+              <img src="images/HostelNow.png" alt="" />
             </span>
             <span className="text-slate-500">Hostel</span>
             <span className="text-slate-700">Now</span>

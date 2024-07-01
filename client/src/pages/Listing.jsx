@@ -22,6 +22,7 @@ import {
 import Contact from "../components/Contact";
 import CommentContainer from "../components/comments/CommentContainer";
 import Map from "../components/Map";
+import FeedbackForm from "../components/star/FeedbackForm";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
@@ -32,6 +33,22 @@ export default function Listing() {
   const [contact, setContact] = useState(false);
   const params = useParams();
   const { currentUser } = useSelector((state) => state.user);
+
+  const [rating, setRating] = useState(2);
+  const [feedback, setFeedback] = useState("");
+
+  const handleRatingChange = (event) => {
+    setRating(Number(event.target.id.replace("star", "")));
+  };
+
+  const handleFeedbackChange = (event) => {
+    setFeedback(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    alert(`Rating: ${rating}\nFeedback: ${feedback}`);
+    // You can add an AJAX call here to send the feedback to the server
+  };
 
   const fetchListing = async () => {
     try {
@@ -88,6 +105,10 @@ export default function Listing() {
     fetchListing();
     console.log(res);
   }
+  const handleRatingSubmit = (rating) => {
+    console.log(`You have clicked ${rating} star(s)`);
+  };
+
   return (
     <main>
       {/* Banner Section */}
@@ -182,7 +203,7 @@ export default function Listing() {
                     {listing.address}
                   </p>
                   <p className="flex items-center gap-2 text-red-600  text-sm">
-                   Total Beds Available -{listing.availableRooms}
+                    Total Beds Available -{listing.availableRooms}
                   </p>
 
                   <p className="text-slate-700">
@@ -204,7 +225,6 @@ export default function Listing() {
                       </p>
                     )}
                   </div>
-
                   <CommentContainer
                     className="mt-10"
                     logginedUserId={currentUser._id}
@@ -304,7 +324,7 @@ export default function Listing() {
                       Location :
                     </p>
                     <div className="mapContainer w-full h-64 ">
-                      <Map listing={listing}/>
+                      <Map listing={listing} />
                     </div>
                     {currentUser &&
                       listing.userRef !== currentUser._id &&

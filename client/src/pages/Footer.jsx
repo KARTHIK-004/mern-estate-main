@@ -8,7 +8,7 @@ function Footer() {
           <div>
             <div className="flex justify-center text-slate-600 sm:justify-start ">
               <div className="w-20">
-                <img src="public/images/HostelNow.png" alt="" />
+                <img src="images/HostelNow.png" alt="" />
               </div>
               <p className="text-4xl ">
                 <span className="text-slate-500">
