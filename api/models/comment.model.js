@@ -6,7 +6,8 @@ const commentSchema = new mongoose.Schema(
     comment: String,
     username : String,
     avatar : String,
-    listingId : {type : mongoose.Schema.ObjectId , ref : "Listing"}
+    listingId : {type : mongoose.Schema.ObjectId , ref : "Listing"},
+    rating : {type : Number, required : true}
     // parent : {type : mongoose.Schema.ObjectId,ref : 'Comment'}
   },
   { timestamps: true }

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
@@ -34,7 +35,7 @@ const Comment = ({
             {comment.username}
           </h5>
           <div className="flex ml-2">
-            {[...Array(5)].map((_, index) => (
+            {[...Array(comment.rating)].map((_, index) => (
               <FaStar  key={index} className="w-4 h-4 text-slate-500" />
             ))}
           </div>

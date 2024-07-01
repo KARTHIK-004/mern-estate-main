@@ -1,11 +1,11 @@
 import Comment from "../models/comment.model.js"
 import User from "../models/user.model.js"
 const addComment = async(req,res) =>{
-    const {comment,userId,listingId} = req.body;
+    const {comment,userId,listingId,rating} = req.body;
     try{
         const userDoc = await User.findById({_id : userId});
         console.log(userDoc)
-        const newComment = await Comment.create({comment,user : userId,username : userDoc.username,avatar : userDoc.avatar,listingId});
+        const newComment = await Comment.create({comment,user : userId,username : userDoc.username,avatar : userDoc.avatar,listingId,rating});
         console.log("comment created");
         res.status(201).json({commentId : newComment._id, message : "Comment has been created"});
     }catch(err){

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 
 const CommentForm = ({
@@ -28,7 +29,7 @@ const CommentForm = ({
     console.log(`Rating: ${rating}`);
     console.log(`Feedback: ${feedback}`);
   };
-  const [value, setValue] = useState(initialText);
+  // const [value, setValue] = useState(initialText);
 
   const submitHandler = async(e) => {
     e.preventDefault();
