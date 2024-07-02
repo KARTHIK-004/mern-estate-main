@@ -7,7 +7,8 @@ const commentSchema = new mongoose.Schema(
     username : String,
     avatar : String,
     listingId : {type : mongoose.Schema.ObjectId , ref : "Listing"},
-    rating : {type : Number, required : true}
+    rating : {type : Number, required : true},
+    sentimentScore : {type : Number, required : true}
     // parent : {type : mongoose.Schema.ObjectId,ref : 'Comment'}
   },
   { timestamps: true }
