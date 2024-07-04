@@ -7,6 +7,7 @@ import {
   deleteUserSuccess,
   signOutUserStart,
 } from "../redux/user/userSlice.js";
+import { useDispatch } from "react-redux";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -14,6 +15,7 @@ export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,8 +35,9 @@ export default function Header() {
         return;
       }
       dispatch(deleteUserSuccess(data));
+      navigate("/");
     } catch (error) {
-      dispatch(deleteUserFailure(data.message));
+      dispatch(deleteUserFailure(error.message));
     }
   };
 
@@ -152,7 +155,9 @@ export default function Header() {
               )}
             </div>
           ) : (
-            <li className=" text-slate-700 hover:underline"> Sign in</li>
+            <Link to="/sign-in">
+              <li className=" text-slate-700 hover:underline"> Sign in</li>
+            </Link>
           )}
         </ul>
       </div>
