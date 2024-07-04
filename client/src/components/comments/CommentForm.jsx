@@ -31,18 +31,18 @@ const CommentForm = ({
   };
   // const [value, setValue] = useState(initialText);
 
-  const submitHandler = async(e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    await formSubmitHanlder(feedback,rating);
+    await formSubmitHanlder(feedback, rating);
     setFeedback("");
-    setRating(0)
+    setRating(0);
   };
 
   return (
     <form onSubmit={submitHandler}>
       <div className="wrapper p-6 flex flex-col items-center gap-3 rounded-lg bg-white  z-1">
         <div className="title text-2xl font-semibold">Rate your experience</div>
-        <div className="content text-center text-gray-600 leading-relaxed">
+        <div className="content text-center text-slate-600 leading-relaxed">
           We highly value your feedback! Kindly take a moment to rate your
           experience and provide us with your valuable feedback.
         </div>
@@ -53,7 +53,7 @@ const CommentForm = ({
               data-value={5 - i}
               onClick={handleRatingChange}
               className={`star cursor-pointer text-3xl ${
-                rating >= 5 - i ? "text-slate-500" : "text-gray-300"
+                rating >= 5 - i ? "text-slate-500" : "text-slate-300"
               }`}
             >
               ★
@@ -75,7 +75,7 @@ const CommentForm = ({
           disabled={rating === 0 || feedback.trim() === ""}
           className={`px-6 py-2.5 rounded-lg font-semibold mt-2 bg-slate-700 text-white disabled:opacity-70 disabled:cursor-not-allowed ${
             rating === 0 || feedback.trim() === ""
-              ? "bg-gray-400 cursor-not-allowed"
+              ? "bg-slate-400 cursor-not-allowed"
               : "bg-slate-500 hover:bg-slate-500 transition-all duration-200 active:transform active:translate-y-1"
           }`}
         >
