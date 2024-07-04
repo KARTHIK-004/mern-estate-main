@@ -7,6 +7,7 @@ import listingRouter from './routes/listing.route.js';
 import commentRouter from './routes/comment.route.js'
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors'
 dotenv.config();
 
 mongoose
@@ -25,6 +26,8 @@ const app = express();
 app.use(express.json());
 
 app.use(cookieParser());
+
+app.use(cors({origin : 'http://localhost:5173/' }))
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000!');
